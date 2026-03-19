@@ -16,6 +16,8 @@ npm install
 OPENROUTER_API_KEY=your_key_here
 ```
 
+Create one at https://openrouter.ai/settings/keys
+
 3. Create a text file with one starting line per line.
 
 4. Fill `models.txt` with one OpenRouter model ID per line.
