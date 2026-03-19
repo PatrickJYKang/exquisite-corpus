@@ -26,6 +26,18 @@ OPENROUTER_API_KEY=your_key_here
 npm run generate -- --input seeds.txt --models-file models.txt --variants 2 --output output/corpus.jsonl --text-output output/out.txt
 ```
 
+## Help
+
+```bash
+npm run generate -- --help
+```
+
+Or run the script directly:
+
+```bash
+node src/generate.js --help
+```
+
 ## Output
 
 The command writes two outputs:

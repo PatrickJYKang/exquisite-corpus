@@ -22,6 +22,11 @@ function parseArgs(argv) {
   for (let index = 0; index < argv.length; index += 1) {
     const current = argv[index];
 
+    if (current === '-h') {
+      args.help = 'true';
+      continue;
+    }
+
     if (!current.startsWith('--')) {
       continue;
     }
@@ -44,18 +49,47 @@ function parseArgs(argv) {
 function printUsage() {
   console.log(`Usage:
   npm run generate -- --input seeds.txt --models-file models.txt [options]
+  node src/generate.js --input seeds.txt --models-file models.txt [options]
 
-Options:
-  --input <path>            Path to a text file containing one seed line per line
-  --models-file <path>      Path to a text file containing one model ID per line
-  --models <list>           Comma-separated OpenRouter model IDs fallback
-  --variants <number>       Independent chained runs per seed (default: 1)
-  --output <path>           Output JSONL path (default: output/corpus.jsonl)
-  --text-output <path>      Final plain text output path (default: output/out.txt)
-  --temperature <number>    Sampling temperature (default: 0.9)
-  --max-tokens <number>     Maximum tokens for each continuation (default: 80)
-  --system-prompt <text>    Override the default system prompt
-  --help                    Show this message
+Description:
+  Generate exquisite-corpus style chains from seed lines and model IDs.
+  Each model sees only the immediately previous line.
+  Failed or timed-out model steps are skipped, and partial chains are still saved.
+
+Required:
+  --input <path>            Text file with one seed line per line
+
+Model selection:
+  --models-file <path>      Text file with one model ID per line
+  --models <list>           Comma-separated model IDs fallback if no models file is given
+
+Generation:
+  --variants <number>       Independent chain runs per seed (default: 1)
+  --temperature <number>    Sampling temperature for each model call (default: 0.9)
+  --max-tokens <number>     Maximum tokens requested per generated line (default: 80)
+  --system-prompt <text>    Override the default one-line continuation instruction
+
+Output:
+  --output <path>           JSONL output path (default: output/corpus.jsonl)
+  --text-output <path>      Plain text output path (default: output/out.txt)
+
+Environment:
+  OPENROUTER_API_KEY        Required; loaded from .env
+  OPENROUTER_REFERER        Optional; sent as HTTP-Referer
+  OPENROUTER_TITLE          Optional; sent as X-Title
+
+Behavior:
+  - Each request times out after ${requestTimeoutMs}ms.
+  - Chains are saved even if some models fail.
+  - out.txt includes inline [model-id] attribution and an [errors: ...] summary when needed.
+
+Examples:
+  npm run generate -- --input seeds.txt --models-file models.txt
+  npm run generate -- --input seeds.txt --models-file models.txt --variants 3
+  npm run generate -- --input seeds.txt --models deepseek/deepseek-v3.2,google/gemini-3-flash-preview
+
+Help:
+  --help, -h                Show this message
 `);
 }
 
