@@ -1,0 +1,6 @@
+deepseek/deepseek-v3.2
+google/gemini-3-flash-preview
+anthropic/claude-sonnet-4.6
+x-ai/grok-4.1-fast
+anthropic/claude-sonnet-4.6
+deepseek/deepseek-v3.2

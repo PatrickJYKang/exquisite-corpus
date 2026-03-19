@@ -1,0 +1,12 @@
+{
+  "name": "exquisite-corpus",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node src/generate.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
